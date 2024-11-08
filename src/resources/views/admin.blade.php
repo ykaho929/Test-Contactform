@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test-contactform</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('admin.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
 </head>
 <body>
 
@@ -16,9 +16,10 @@
             <a class="header__logo" href="/admin">
                 FashionablyLate
             </a>
-            <a class="header_item">
-                logout
-            </a>
+            <form class="form" action="/logout" method="post">
+                @csrf
+                <button class="header-nav__button">logout</button>
+            </form>
         </div>
     </header>
 
@@ -29,7 +30,8 @@
                 Admin
             </a>
         </div>
-        
+        <div class="admin__content">
+            
     </main>
 
 </body>
