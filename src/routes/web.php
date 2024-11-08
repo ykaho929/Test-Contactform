@@ -24,3 +24,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/thanks',[ContactController::class,'thanks']);
 Route::get('/register',[ContactController::class,'register']);
 Route::get('/login',[ContactController::class,'login']);
+Route::get('/login', function () {
+    return view('.login'); 
+})->name('login');
