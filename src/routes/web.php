@@ -27,3 +27,4 @@ Route::get('/login',[ContactController::class,'login']);
 Route::get('/login', function () {
     return view('.login'); 
 })->name('login');
+
