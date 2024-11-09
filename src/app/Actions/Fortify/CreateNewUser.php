@@ -16,8 +16,9 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      *
      * @param  array<string, string>  $input
+     * @return \App\Models\User
      */
-    public function create(array $input): User
+    public function create(array $input)
     {
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
@@ -26,18 +27,16 @@ class CreateNewUser implements CreatesNewUsers
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class),
-            // 'password' => ['required', 'string', 'min:8'],
-            ],
-            // 'password' => $this->passwordRules(),
-        ])->validate();
+                'unique:users',],
+            'password' => ['required', 'string', 'min:8'],
+        ],)->validate();
 
-        $user = User::create([
+        return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 
-        return redirect('/login');
+        
     }
 }
