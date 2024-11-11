@@ -140,18 +140,17 @@
             <div class="form__group">
                 <div class="form__group-title">
                     <span class="form__label--item">お問い合わせ種類</span>
-                    @php
-                        dd($categories);
-                    @endphp
                     <div class="form__group-content">
                         <div class="form__input--text">
                             <select name="category_id">
                                 <option disabled selected value="">選択してください</option>
+                                @isset($categories)
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                     {{ $category->content }}
                                     </option>
                                 @endforeach
+                                @endisset
                             </select>
                         </div>
                         <div class="form__error">
