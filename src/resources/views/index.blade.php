@@ -86,13 +86,13 @@
                     <span class="form__label--item">電話番号</span>
                     <div class="form__group-content">
                         <div>
-		                    <input type="text" id="tell_first" name="tell_first" placeholder="080" maxlength="5" value="{{ old('tell_first') }}">-
+		                    <input type="text" id="tell_first" name="tell_first" placeholder="080" maxlength="5" value="{{ old('tell_first') }}"> -
                             @error('tell_first')
                                 <div class="form__error">{{ $message }}</div>
                             @enderror
 	                    </div>
                         <div>
-	                        <input type="text" id="tell_second" name="tell_second" placeholder="1234" maxlength="5" value="{{ old('tell_second') }}">-
+	                        <input type="text" id="tell_second" name="tell_second" placeholder="1234" maxlength="5" value="{{ old('tell_second') }}"> -
                             @error('tell_second')
                                 <div class="form__error">{{ $message }}</div>
                             @enderror
@@ -104,11 +104,11 @@
                             @enderror
 	                    </div>
                     </div>
-                    <!-- <div class="form__error">
+                    <div class="form__error">
                         @error('tell')
                             {{ $message }}
                         @enderror
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div class="form__group">
