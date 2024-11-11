@@ -29,14 +29,27 @@ class ContactRequest extends FormRequest
             'gender' => ['required'],
             'email' => ['required','email', 'max:255'],
             // 'tell' => ['required', 'numeric', 'max:5'], 
-            'tell_first' => ['required', 'digits:5'],
-            'tell_second' => ['required', 'digits:5'],
-            'tell_third' => ['required', 'digits:5'],
+            'tell_first' => ['nullable', 'digits:5'],
+            'tell_second' => ['nullable', 'digits:5'],
+            'tell_third' => ['nullable', 'digits:5'],
             'address' => ['required', 'max:255'],
             'building' => ['max:225'],
             'category_id' => ['required'],
             'detail' => ['required','max:120']
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $tellFirst = $this->input('tell_first');
+            $tellSecond = $this->input('tell_second');
+            $tellThird = $this->input('tell_third');
+
+            if (($tellFirst || $tellSecond || $tellThird) && (! $tellFirst || ! $tellSecond || ! $tellThird)) {
+                $validator->errors()->add('tell', '電話番号を入力してください');
+            }
+        });
     }
 
     public function messages()
@@ -50,15 +63,8 @@ class ContactRequest extends FormRequest
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスはメール形式で入力してください',
             'email.max' => 'メールアドレスを255文字以下で入力してください',
-            // 'tell.required' => '電話番号を入力してください', 'tell.numeric' => '電話番号を数値で入力してください', 'tell.max' => '電話番号は5桁までの番号で入力してください', 
-
-            // 'tell.required' => '電話番号を入力してください',
-            // 'tell.numeric' => '電話番号を数値で入力してください',
-            'tell_first.required' => '電話番号を入力してください',
             'tell_first.digits' => '電話番号は5桁までの数字で入力してください',
-            'tell_second.required' => '電話番号を入力してください',
             'tell_second.digits' => '電話番号は5桁までの数字で入力してください',
-            'tell_third.required' => '電話番号を入力してください',
             'tell_third.digits' => '電話番号は5桁までの数字で入力してください',
             'address.required' => '住所を入力してください',
             'address.max' => '住所を255文字以下で入力してください',
