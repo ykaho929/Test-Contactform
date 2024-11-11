@@ -19,12 +19,12 @@
         </div>
     </header>
 
-    <main>
-        <main class="main">
+
+    <main class="main">
         <div class="main__inner">
-            <a class="main__ttl">
+            <h1 class="main__ttl">
                 Contact
-            </a>
+            </h1>
         </div>
         <form class="form" action="/contacts/confirm" method="post">
             @csrf
@@ -35,11 +35,18 @@
                         <div class="form__input--text">
                              <input type="text" name="first_name" placeholder="例：山田" />
                         </div>
+                        <div class="form__error">
+                            @error('first_name')
+                                {{ $message }}
+                            @enderror
+                        </div>
                         <div class="form__input--text">
                             <input type="text" name="last_name" placeholder="例：太郎" />
                         </div>
                         <div class="form__error">
-
+                            @error('last_name')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -48,9 +55,14 @@
                 <div class="form__group-title">
                      <span class="form__label--item">性別</span>
                      <div class="form__group-content">
-                        <div class="form__input--text">
-                             <input type="text" name="gender" placeholder="男性" />
-                        </div>
+                        <input type="radio" name="gender" value="man" checked> 男性
+                        <input type="radio" name="gender" value="women"> 女性
+                        <input type="radio" name="gender" value="other"> その他
+                    </div>
+                    <div class="form__error">
+                        @error('gender')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -61,26 +73,45 @@
                         <div class="form__input--text">
                              <input type="text" name="email" placeholder="例：test@example.com" />
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form__group">
-                <div class="form__group-title">
-                     <span class="form__label--item">電話番号</span>
-                     <div class="form__group-content">
-                        <div class="form__input--text">
-                             <input type="text" name="tell" placeholder="080-1234-5678" />
+                        <div class="form__error">
+                            @error('email')
+                                {{ $message }}
+                            @enderror
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form__group">
                 <div class="form__group-title">
-                     <span class="form__label--item">住所</span>
-                     <div class="form__group-content">
-                        <div class="form__input--text">
-                             <input type="text" name="address" placeholder="例：東京都渋谷区千駄ヶ谷１－２－３" />
+                    <span class="form__label--item">電話番号</span>
+                    <div class="form__group-content">
+                        <div>
+		                    <input type="tell" id="tell_first" name="tell_first" placeholder="080">-
+	                    </div>
+                        <div>
+	                        <input type="tell" id="tell_second" name="tell_second" placeholder="1234">-
                         </div>
+	                    <div>
+	                        <input type="tell" id="tell_third" name="tell_third" placeholder="5678" >
+	                    </div>
+                    </div>
+                    <div class="form__error">
+                        @error('tell')
+                            {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form__group-title">
+                <span class="form__label--item">住所</span>
+                    <div class="form__group-content">
+                        <div class="form__input--text">
+                            <input type="text" name="address" placeholder="例：東京都渋谷区千駄ヶ谷１－２－３" />
+                        </div>
+                    @error('address')
+                        {{ $message }}
+                    @enderror    
                     </div>
                 </div>
             </div>
@@ -91,26 +122,39 @@
                         <div class="form__input--text">
                              <input type="text" name="building" placeholder="例：千駄ヶ谷マンション１０１" />
                         </div>
+                        @error('building')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
             <div class="form__group">
                 <div class="form__group-title">
-                     <span class="form__label--item">お問い合わせ種類</span>
-                     <div class="form__group-content">
+                    <span class="form__label--item">お問い合わせ種類</span>
+                    <div class="form__group-content">
                         <div class="form__input--text">
-                             <input type="text" name="category_id" placeholder="選択してください" />
+                             <select name="category_id">
+                                <option disabled selected value>選択してください</option>
+                                <!-- <option value="A">option_A</option> -->
+                            </select> 
                         </div>
+                        @error('category_id')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
             <div class="form__group">
                 <div class="form__group-title">
-                     <span class="form__label--item">お問い合わせ内容</span>
-                     <div class="form__group-content">
+                    <span class="form__label--item">お問い合わせ内容</span>
+                    <div class="form__group-content">
                         <div class="form__input--text">
-                             <input type="text" name="detail" placeholder="例：お問い合わせ内容をご記入ください" />
+                             <textarea name="detail" placeholder="例：お問い合わせ内容をご記入ください">                                
+                             </textarea>
                         </div>
+                        @error('detail')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
             </div>
