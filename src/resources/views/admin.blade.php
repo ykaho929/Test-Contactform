@@ -26,9 +26,9 @@
     <main>
         <main class="main">
         <div class="main__inner">
-            <a class="main__ttl">
+            <h1 class="main__ttl">
                 Admin
-            </a>
+        </h1>
         </div>
         <div class="admin__content">
             

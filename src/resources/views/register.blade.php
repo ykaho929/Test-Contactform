@@ -24,9 +24,9 @@
     <main>
         <main class="main">
         <div class="main__inner">
-            <a class="main__ttl">
+            <h1 class="main__ttl">
                 Register
-            </a>
+            </h1>
         </div>
         <div class="register__content">
             <form class="form" action="/register" method="post">
