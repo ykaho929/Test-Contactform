@@ -62,6 +62,7 @@
                     <th>メールアドレス</th>
                     <th>お問い合わせの種類</th>
                 </tr>
+                @isset($contents)
                 @foreach ($contents as $content)
                 <tr>
                     <td>{{$name->id}}</td>
@@ -70,6 +71,7 @@
                     <td>{{$category->id}}</td>                    
                 </tr>
                 @endforeach
+                @endisset
                 <details class="modal">
                     <a href="#modal-01" class="modal-button">詳細</a>
                     <div class="modal-wrapper" id="modal-01">
