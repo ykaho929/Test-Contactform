@@ -21,11 +21,13 @@ Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
 Route::post('/contacts', [ContactController::class, 'store']);
 Route::get('/contact', [ContactController::class, 'create']);
 
+Route::get('/thanks',[ContactController::class,'thanks'])->name('thanks');
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [ContactController::class, 'admin'])->name('admin');
 });
-
-Route::get('/thanks',[ContactController::class,'thanks'])->name('thanks');
+Route::get('/contacts/search', [ContactController::class, 'search']);
+Route::get('/admin', [ContactController::class, 'admin']);
 
 Route::get('/register',[ContactController::class,'register'])->name('register');
 Route::get('/login',[ContactController::class,'login']);

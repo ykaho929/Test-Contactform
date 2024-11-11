@@ -19,4 +19,18 @@ class Contact extends Model
             'building',
             'detail'
         ];
+    
+         public function scopeCategorySearch($query, $name)
+    {
+        if (!empty($name)) {
+        $query->where('name', $name);
+        }
+    }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+        $query->where('content', 'like', '%' . $keyword . '%');
+        }
+    }
 }
