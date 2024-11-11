@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -12,10 +14,17 @@ class ContactController extends Controller
         return view('index');
     }
 
+    public function create()
+    {
+        $categories = Category::all();
+        dd($categories); 
+        return view('index', compact('categories'));        
+    }
+
     public function confirm(ContactRequest $request)
     {
         $contact = $request->only([
-            'category_id','first_name','last_name','gender','email','tel','adress','building','detail'
+            'category_id','first_name','last_name','gender','email','tel','address','building','detail'
         ]);
         $contact['name'] = $request->first_name . ' ' . $request->last_name;
         $contact['tel'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
@@ -42,7 +51,11 @@ class ContactController extends Controller
         return redirect()->route('contacts.thankyou');
     }
 
-    
+    public function thanks()
+    {
+    return view('thanks');
+    }
+
     public function register()
     {
         return view('register');

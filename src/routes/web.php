@@ -14,15 +14,20 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/', function () {return view('welcome');});
+// Route::get('/', function () {return view('welcome');});
 Route::get('/', [ContactController::class,'index']);
+
 Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
 Route::post('/contacts', [ContactController::class, 'store']);
+Route::get('/contact', [ContactController::class, 'create']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [ContactController::class, 'admin'])->name('admin');
 });
-Route::get('/thanks',[ContactController::class,'thanks']);
-Route::get('/register',[ContactController::class,'register']);
+
+Route::get('/thanks',[ContactController::class,'thanks'])->name('thanks');
+
+Route::get('/register',[ContactController::class,'register'])->name('register');
 Route::get('/login',[ContactController::class,'login']);
 Route::get('/login', function () {
     return view('.login'); 
