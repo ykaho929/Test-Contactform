@@ -17,7 +17,6 @@ class ContactController extends Controller
     public function create()
     {
         $categories = Category::all();
-        dd($categories); 
         return view('index', compact('categories'));        
     }
 
@@ -49,6 +48,13 @@ class ContactController extends Controller
         ]);
 
         return redirect()->route('contacts.thankyou');
+    }
+
+    public function edit(Request $request)
+    {
+    $contact = $request->only(['first_name','last_name', 'gender', 'email', 'tell', 'address', 'building', 'category_id', 'detail']);
+
+    return view('index', compact('contact'));
     }
 
     public function thanks()

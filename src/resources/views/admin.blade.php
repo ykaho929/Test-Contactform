@@ -35,7 +35,10 @@
                 <div class="search-form__item">
                     <input class="search-form__item-input" type="text" name="keyword" placeholder="名前やメールアドレスを入力してください” value="{{ old('keyword') }}"  />
                     <select class="search-form__item-select" name="gender">
-                        <option value="">性別</option>
+                        <option disabled selected value="">性別</option>
+                        <option value="1" {{ old('gender') == '1' ? 'selected' : '' }}>男性</option>
+                        <option value="2" {{ old('gender') == '2' ? 'selected' : '' }}>女性</option>
+                        <option value="3" {{ old('gender') == '3' ? 'selected' : '' }}>その他</option>
                     </select>
                     <select class="search-form__item-select" name="category_id">
                         <option value="">お問い合わせの種類</option>
@@ -44,16 +47,16 @@
                 </div>
                 <div class="search-form__button">
                     <button class="search-form__button-submit" type="submit">検索</button>
-                </div>
-                    <div class="search-form__button">
-                    <button class="search-form__button-reset" input type="reset">リセット</button>
+                    <button class="search-form__button-reset" type="reset">リセット</button>
                 </div>
             </form>
         </div>
+
         <div class="admin__content">
-            <div class="export__button">エクスポート</button>
+            <button class="export__button">エクスポート</button>
         ページネーションの記述
         </div>
+
         <div class="admin__content">
             <table class="contact-list">
                 <tr>
@@ -65,23 +68,27 @@
                 @isset($contents)
                 @foreach ($contents as $content)
                 <tr>
-                    <td>{{$name->id}}</td>
-                    <td>{{$gender->id}}</td>
-                    <td>{{$email->id}}</td>
-                    <td>{{$category->id}}</td>                    
+                    <td>{{ $content->name }}</td>
+                    <td>{{ $content->gender }}</td>
+                    <td>{{ $content->email }}</td>
+                    <td>{{ $content->category->content }}</td>
                 </tr>
                 @endforeach
                 @endisset
+            <!-- </table> -->
                 <details class="modal">
                     <a href="#modal-01" class="modal-button">詳細</a>
                     <div class="modal-wrapper" id="modal-01">
-                    <a href="#!" class="modal-overlay"></a>
-                    <div class="modal-window">
-                    <div class="modal-content">
-                        <table class="detail">
-                        </table>
+                        <a href="#!" class="modal-overlay"></a>
+                        <div class="modal-window">
+                            <div class="modal-content">
+                                <table class="detail">
+
+                                </table>
+                            </div>
+                            <a href="#!" class="modal-close"><i class="far fa-times-circle"></i></a>
+                        </div>
                     </div>
-                    <a href="#!" class="modal-close"><i class="far fa-times-circle"></i></a>
                 </details>
             </table>  
         </div>                  
