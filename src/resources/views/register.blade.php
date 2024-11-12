@@ -16,8 +16,9 @@
             <a class="header__logo" href="/register">
                 FashionablyLate
             </a>
-            <a class="login__button-submit" href="/login">login                
-            </a>
+            <form action="/login" method="get">
+                <button class="login__button-submit" type="submit">login</button>
+            </form>
         </div>
     </header>
 
