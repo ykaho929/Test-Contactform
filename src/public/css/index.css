@@ -4,13 +4,19 @@
 
 .header__inner {
     margin: 0 auto;
-        padding: 20px 15px;
-        max-width: 1230px;
-    }
+    padding: 20px 15px;
+    max-width: 1230px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .header__logo {
-    color: #C69E6E;
+    color: #705b43;
     text-decoration: none;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
 }

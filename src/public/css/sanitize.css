@@ -550,6 +550,10 @@ textarea,
     -ms-touch-action: manipulation;
     /* 1 */
     touch-action: manipulation;
+    padding: 10px 15px;
+    margin: 10px;
+    background-color: rgb(248, 240, 232);
+    border-color: rgb(248, 240, 232);
     /* 2 */
 }
 
