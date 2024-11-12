@@ -30,7 +30,7 @@
             </h1>
         </div>
         <div class="admin__content">
-            <form class="search-form" action="/contents/search" method="get">
+           <form class="search-form" action= "/contents/search" method="get"> 
                 @csrf
                 <div class="search-form__item">
                     <input class="search-form__item-input" type="text" name="keyword" placeholder="名前やメールアドレスを入力してください” value="{{ old('keyword') }}"  />
@@ -42,6 +42,9 @@
                     </select>
                     <select class="search-form__item-select" name="category_id">
                         <option value="">お問い合わせの種類</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->content }}</option>
+                        @endforeach
                     </select>
                     <input name="date" type="date" />                
                 </div>
@@ -69,9 +72,9 @@
                 @foreach ($contents as $content)
                 <tr>
                     <td>{{ $content->name }}</td>
-                    <td>{{ $content->gender }}</td>
+                    <td>{{ $contact->gender == 1 ? '男性' : ($contact->gender == 2 ? '女性' : 'その他') }}</td>
                     <td>{{ $content->email }}</td>
-                    <td>{{ $content->category->content }}</td>
+                    <td>{{ $contact->category->content ?? '未分類' }}</td>
                 </tr>
                 @endforeach
                 @endisset
