@@ -18,6 +18,7 @@ use App\Http\Controllers\ContactController;
 Route::get('/', [ContactController::class,'index']);
 
 Route::post('/contacts/confirm', [ContactController::class, 'confirm']);
+Route::post('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
 Route::post('/contacts', [ContactController::class, 'store']);
 Route::get('/contact', [ContactController::class, 'create']);
 
@@ -34,4 +35,6 @@ Route::get('/login',[ContactController::class,'login']);
 Route::get('/login', function () {
     return view('.login'); 
 })->name('login');
+
+Route::post('/logout', [ContactController::class, 'login'])->name('logout');
 
