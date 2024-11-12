@@ -33,7 +33,7 @@
            <form class="search-form" action= "/contents/search" method="get"> 
                 @csrf
                 <div class="search-form__item">
-                    <input class="search-form__item-input" type="text" name="keyword" placeholder="名前やメールアドレスを入力してください” value="{{ old('keyword') }}"  />
+                    <input class="search-form__item-input" type="text" name="keyword" placeholder="名前やメールアドレスを入力してください" value="{{ old('keyword') }}"  />
                     <select class="search-form__item-select" name="gender">
                         <option disabled selected value="">性別</option>
                         <option value="1" {{ old('gender') == '1' ? 'selected' : '' }}>男性</option>
