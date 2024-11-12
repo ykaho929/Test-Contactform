@@ -25,7 +25,7 @@
                 Confirm
             </h1>
         </div>
-        <form class="form" action="/contacts" method="post">
+        <form class="form" action="{{ route('contact.store') }}" method="post">
             @csrf
             <div class="confirm-table">
                 <table class="confirm-table__inner">

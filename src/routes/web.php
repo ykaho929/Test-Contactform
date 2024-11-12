@@ -14,7 +14,7 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/', function () {return view('index');});
+// Route::get('/', function () {return view('index');});
 // Route::get('/', [ContactController::class,'index']);
 Route::get('/', [ContactController::class, 'create'])->name('contact.form');
 
@@ -28,11 +28,13 @@ Route::get('/thanks',[ContactController::class,'thanks'])->name('contact.thanks'
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [ContactController::class, 'admin'])->name('admin');
 });
-Route::get('/contacts/search', [ContactController::class, 'search']);
-Route::get('/admin', [ContactController::class, 'admin'])->name('admin');
-Route::get('/admin', [ContactController::class, 'create'])->name('admin');
+
+// Route::get('/contacts/search', [ContactController::class, 'search']);
+// Route::get('/admin', [ContactController::class, 'admin'])->name('admin');
+// Route::get('/admin', [ContactController::class, 'create'])->name('admin');
 
 Route::get('/register',[ContactController::class,'register'])->name('register');
+
 Route::get('/login',[ContactController::class,'login']);
 Route::get('/login', function () {
     return view('.login'); 
