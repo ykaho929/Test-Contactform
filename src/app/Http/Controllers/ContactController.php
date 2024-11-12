@@ -6,34 +6,32 @@ use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
-    public function index()
-    {
-        return view('index');
-    }
-
     public function create()
     {
         $categories = Category::all();
-        return view('admin', compact('categories'));        
+        return view('index', compact('categories'));        
     }
 
     public function confirm(ContactRequest $request)
     {
         $contact = $request->only([
-            'category_id','first_name','last_name','gender','email','tel','address','building','detail'
+            'category_id','first_name','last_name','gender','email','tell','address','building','detail'
         ]);
         $contact['name'] = $request->first_name . ' ' . $request->last_name;
-        $contact['tel'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
+        $contact['tell'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
+        $contact['category_content'] = Category::find($contact['category_id'])->name ?? '未分類';
+
 
         return view('confirm', compact('contact'));
     }
 
     public function store(ContactRequest $request)
     {
-        $tel = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
+        $tell = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
 
         Contact::create([
             'first_name' => $request->first_name,
@@ -59,7 +57,7 @@ class ContactController extends Controller
     {
     $contact = $request->only(['first_name','last_name', 'gender', 'email', 'tell', 'address', 'building', 'category_id', 'detail']);
 
-    return view('admin', compact('contact'));
+    return view('confirm', compact('contact'));
     }
 
     public function register()
@@ -72,10 +70,27 @@ class ContactController extends Controller
         return view('login');
     }
 
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/admin'); 
+        }
+
+        return back()->withErrors([
+            'email' => 'メールアドレスまたはパスワードが正しくありません。',
+        ]);
+    }
+
     public function admin()
     {
-        $contacts = Contact::all();
         $contacts = Contact::Paginate(7);
+        $categories = Category::all();
         return view('admin', compact('contacts', 'categories')); 
     }
 
@@ -83,6 +98,7 @@ class ContactController extends Controller
     {
         $categories = Category::all();
         $query = Contact::query();
+
         if ($request->filled('keyword')) {
             $query->where(function($q) use ($request) {
                 $q->where('first_name', 'like', '%' . $request->keyword . '%')
@@ -99,8 +115,6 @@ class ContactController extends Controller
         }
 
         $contacts = $query->paginate(7); 
-
-        $contacts = $query->get();
 
         return view('admin', compact('contacts', 'categories'));
     }
