@@ -14,14 +14,12 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-// Route::get('/', function () {return view('index');});
-// Route::get('/', [ContactController::class,'index']);
 Route::get('/', [ContactController::class, 'create'])->name('contact.form');
 
-Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+Route::post('/contacts/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
 Route::post('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
-// Route::get('/contact', [ContactController::class, 'create']);
+
 
 Route::get('/thanks',[ContactController::class,'thanks'])->name('contact.thanks');
 
@@ -30,7 +28,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route::get('/contacts/search', [ContactController::class, 'search']);
-// Route::get('/admin', [ContactController::class, 'admin'])->name('admin');
+Route::get('/admin', [ContactController::class, 'admin'])->name('admin')->middleware('auth');
 // Route::get('/admin', [ContactController::class, 'create'])->name('admin');
 
 Route::get('/register',[ContactController::class,'register'])->name('register');
