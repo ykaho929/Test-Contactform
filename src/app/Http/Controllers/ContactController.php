@@ -23,7 +23,7 @@ class ContactController extends Controller
         ]);
         $contact['name'] = $request->first_name . ' ' . $request->last_name;
         $contact['tell'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
-        $contact['category_content'] = Category::find($contact['category_id'])->name ?? '未分類';
+        $contact['category_content'] = Category::where('id', $contact['category_id'])->value('name') ?? '未分類';
 
 
         return view('confirm', compact('contact'));
@@ -47,6 +47,23 @@ class ContactController extends Controller
 
         return redirect()->route('contact.thanks');
     }
+
+//     public function authenticate(Request $request)
+//     {
+//         $credentials = $request->validate([
+//             'email' => ['required', 'email'],
+//             'password' => ['required'],
+//         ]);
+
+//         if (Auth::attempt($credentials)) {
+//             $request->session()->regenerate();
+//             return redirect()->intended('/admin'); 
+//         }
+
+//         return back()->withErrors([
+//             'email' => 'メールアドレスまたはパスワードが正しくありません。',
+//         ])->onlyInput('email'); 
+// }
 
     public function thanks()
     {

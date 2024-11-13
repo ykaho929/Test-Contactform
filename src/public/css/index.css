@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: solid rgb(248, 240, 232);
 }
 
 .header__logo {
@@ -20,3 +21,88 @@
     margin-right: auto;
     background: white;
 }
+
+.main {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.main__inner {
+    text-align: center;
+    color: #705b43;
+    font-size: 15px;
+}
+
+.Contact__content {
+    background-color: rgb(255, 255, 255);
+    padding: 0% 15%;;
+    text-align: left;
+    margin: auto;
+}
+
+.form__group-title{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.form__group-content{
+    align-self: flex-start;
+    font-weight: bold;
+    min-width: 80px;
+}
+
+.first_name,
+.last_name{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.gender{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.email{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.tell{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.address{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.building{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.category_id{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.detail{
+    flex: 1;
+    min-width: 150px;
+    padding: 5px;
+}
+
+.form__button{
+    align-items: center;
+}
+
