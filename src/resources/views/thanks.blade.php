@@ -11,9 +11,10 @@
 </head>
 <body>
 
-    <h1>お問い合わせありがとうございました。</h1>
-    <p>ご入力いただいた内容を確認し、担当者よりご連絡いたします。</p>
-    <a href="/">ホームに戻る</a>
+    <h1>Thankyou!</h1>
+    <form action="/" method="get">
+        <button class="contact__button-submit" type="submit">HOME</button>
+    </form>
 
 </body>
 </html>
