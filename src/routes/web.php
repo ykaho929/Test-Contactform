@@ -29,10 +29,17 @@ Route::middleware('auth')->group(function () {
 
 // Route::get('/contacts/search', [ContactController::class, 'search']);
 Route::get('/admin', [ContactController::class, 'admin'])->name('admin')->middleware('auth');
-// Route::get('/admin', [ContactController::class, 'create'])->name('admin');
 
-Route::get('/register',[ContactController::class,'register'])->name('register');
+Route::get('/register', [ContactController::class, 'register'])->name('register');
+Route::post('/register', [ContactController::class, 'register']);
+Route::post('/register', function () {
+    return redirect('/login');
+});
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
 
+Route::get('/login', [ContactController::class, 'login'])->name('login');
 Route::get('/login',[ContactController::class,'login']);
 Route::get('/login', function () {
     return view('.login'); 
