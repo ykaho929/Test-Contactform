@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
 
 // Route::get('/contacts/search', [ContactController::class, 'search']);
 Route::get('/admin', [ContactController::class, 'admin'])->name('admin')->middleware('auth');
+Route::get('/',function () {
+    return view('/index');
+})->name('index');
 
 Route::get('/register', [ContactController::class, 'register'])->name('register');
 Route::post('/register', [ContactController::class, 'register']);
