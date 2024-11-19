@@ -14,11 +14,13 @@ use App\Http\Controllers\ContactController;
 |
 */
 
+
 Route::get('/', [ContactController::class, 'create'])->name('contact.form');
 
-Route::post('/contacts/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
-Route::post('/contacts/edit', [ContactController::class, 'edit'])->name('contacts.edit');
-Route::post('/contacts', [ContactController::class, 'store'])->name('contact.store');
+Route::post('/handle', [ContactController::class, 'handle'])->name('contact.handle');
+Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+// Route::post('/edit', [ContactController::class, 'edit'])->name('contact.edit');
+// Route::post('/store', [ContactController::class, 'store'])->name('contact.store');
 
 
 Route::get('/thanks',[ContactController::class,'thanks'])->name('contact.thanks');

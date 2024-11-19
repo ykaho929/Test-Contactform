@@ -19,62 +19,53 @@ class ContactController extends Controller
     public function confirm(ContactRequest $request)
     {
         $contact = $request->only([
-            'category_id','first_name','last_name','gender','email','tell','address','building','detail'
+            'category_id',
+            'first_name',
+            'last_name',
+            'gender',
+            'email',
+            'tell',
+            'address',
+            'building',
+            'detail'
         ]);
-        $contact['name'] = $request->first_name . ' ' . $request->last_name;
-        $contact['tell'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
-        $contact['category_content'] = Category::where('id', $contact['category_id'])->value('name') ?? '未分類';
 
+        $contact['name'] = $request->first_name . ' ' . $request->last_name;
+
+        $genderLabels = [
+            '1' => '男性',
+            '2' => '女性',
+            '3' => 'その他',
+        ];
+        $contact['gender'] = $genderLabels[$contact['gender']] ?? '未設定';
+        // $contact['tell'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
+        $contact['category_content'] = Category::where('id', $contact['category_id'])->value('content') ?? '未分類';
+
+        $request->session()->put('contact', $contact);
 
         return view('confirm', compact('contact'));
     }
 
-    public function store(ContactRequest $request)
+    public function handle(Request $request)
     {
-        $tell = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
-
-        Contact::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'gender' => $request->gender,
-            'email' => $request->email,
-            'tell' => $tell,
-            'address' => $request->address,
-            'building' => $request->building,
-            'category_id' => $request->category_id,
-            'detail' => $request->detail,
-        ]);
-
-        return redirect()->route('contact.thanks');
+        $contact = $request->except('action', '_token');
+        if (!$request->filled('category_id')) {
+            return back()->withErrors(['category_id' => 'お問い合わせ種類が選択されていません。'])->withInput();
+        }
+        if ($request->input('action') === 'store') {
+            Contact::create($contact);
+        }
+            return redirect()->route('contact.thanks');
+        if ($request->input('action') === 'edit') {
+            $request->session()->put('contact', $contact);
+            return redirect()->route('contact.create');
+        }
+        return redirect()->route('contact.create');
     }
-
-//     public function authenticate(Request $request)
-//     {
-//         $credentials = $request->validate([
-//             'email' => ['required', 'email'],
-//             'password' => ['required'],
-//         ]);
-
-//         if (Auth::attempt($credentials)) {
-//             $request->session()->regenerate();
-//             return redirect()->intended('/admin'); 
-//         }
-
-//         return back()->withErrors([
-//             'email' => 'メールアドレスまたはパスワードが正しくありません。',
-//         ])->onlyInput('email'); 
-// }
 
     public function thanks()
     {
     return view('thanks');
-    }
-
-    public function edit(Request $request)
-    {
-    $contact = $request->only(['first_name','last_name', 'gender', 'email', 'tell', 'address', 'building', 'category_id', 'detail']);
-
-    return view('confirm', compact('contact'));
     }
 
     public function register()

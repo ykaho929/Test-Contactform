@@ -27,7 +27,7 @@
             </h1>
         </div>
         <div class="Contact__content">
-            <form class="form" action="/contacts/confirm" method="post">
+            <form class="form" action="confirm" method="post">
                 @csrf
                 <div class="form__group">
                     <div class="form__group-title">
@@ -95,7 +95,9 @@
                     <div class="form__group-title">
                         <span class="form__label--item">電話番号</span>
                         <div class="form__group-content">
-                            <div>
+                            <div class="form__input--text">
+                                <input type="text" name="tell" placeholder="例:08012345678" value="{{ $contact['tell'] ?? old('tell') }}" />
+                            <!-- <div>
                                 <input type="text" id="tell_first" name="tell_first" placeholder="080" maxlength="5" value="{{ old('tell_first') }}"> -
                                 @error('tell_first')
                                     <div class="form__error">{{ $message }}</div>
@@ -112,7 +114,7 @@
                                 @error('tell_third')
                                     <div class="form__error">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> -->
                         </div>
                         <div class="form__error">
                             @error('tell')
