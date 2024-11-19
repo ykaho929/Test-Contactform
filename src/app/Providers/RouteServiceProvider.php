@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/login';
+    public const HOME = '/admin';
 
     /**
      * The controller namespace for the application.
@@ -58,6 +58,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+        });
+
+         RateLimiter::for('web', function (Request $request) {
+            return Limit::perMinute(100)->by($request->ip());
         });
     }
 }
