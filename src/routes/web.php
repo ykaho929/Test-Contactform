@@ -15,11 +15,14 @@ use App\Http\Controllers\ContactController;
 */
 
 
-Route::get('/', [ContactController::class, 'create'])->name('contact.create');
-
-Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+Route::get('/', [ContactController::class, 'create'])->name('contact.form');
 
 Route::post('/handle', [ContactController::class, 'handle'])->name('contact.handle');
+Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+// Route::post('/edit', [ContactController::class, 'edit'])->name('contact.edit');
+// Route::post('/store', [ContactController::class, 'store'])->name('contact.store');
+
+
 Route::get('/thanks',[ContactController::class,'thanks'])->name('contact.thanks');
 
 Route::middleware('auth')->group(function () {
