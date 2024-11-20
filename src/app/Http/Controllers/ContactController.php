@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
-    public function create(Request $request)
-{
-    $contact = $request->session()->get('contact', []);
-    $categories = Category::all();
-
-    return view('index', compact('categories', 'contact'));
-}
+    public function create()
+    {
+        $categories = Category::all();
+        return view('index', compact('categories'));        
+    }
 
     public function confirm(ContactRequest $request)
     {
@@ -39,8 +37,7 @@ class ContactController extends Controller
             '2' => '女性',
             '3' => 'その他',
         ];
-        $contact['gender_label'] = $genderLabels[$contact['gender']] ?? '未設定';
-        $contact['gender'] = $request->gender;
+        $contact['gender'] = $genderLabels[$contact['gender']] ?? '未設定';
         // $contact['tell'] = $request->tell_first . '-' . $request->tell_second . '-' . $request->tell_third;
         $contact['category_content'] = Category::where('id', $contact['category_id'])->value('content') ?? '未分類';
 
@@ -51,31 +48,17 @@ class ContactController extends Controller
 
     public function handle(Request $request)
     {
-        $contact = $request->session()->get('contact');
-
-        if (!$contact) {
-            return redirect()->route('contact.create')->withErrors(['error' => 'セッションが切れました。もう一度やり直してください。']);
+        $contact = $request->except('action', '_token');
+        if (!$request->filled('category_id')) {
+            return back()->withErrors(['category_id' => 'お問い合わせ種類が選択されていません。'])->withInput();
         }
-        
         if ($request->input('action') === 'store') {
-            Contact::create([
-            'first_name' => $contact['first_name'],
-            'last_name' => $contact['last_name'],
-            'gender' => $contact['gender'],
-            'email' => $contact['email'],
-            'tell' => $contact['tell'],
-            'address' => $contact['address'],
-            'building' => $contact['building'],
-            'category_id' => $contact['category_id'],
-            'detail' => $contact['detail'],
-        ]);
-        
-            $request->session()->forget('contact');
-            return redirect()->route('contact.thanks');
+            Contact::create($contact);
         }
+            return redirect()->route('contact.thanks');
         if ($request->input('action') === 'edit') {
             $request->session()->put('contact', $contact);
-            return redirect()->route('contact.create')->withInput($contact);
+            return redirect()->route('contact.create');
         }
         return redirect()->route('contact.create');
     }
